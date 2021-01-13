@@ -8,6 +8,7 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import {AppType} from "./redux/state";
 
 function App(props: AppType) {
+
     return (
         <BrowserRouter>
             <div className="app-wrapper">
