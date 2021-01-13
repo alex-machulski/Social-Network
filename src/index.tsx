@@ -3,17 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import store, {RootStateType, StoreType} from "./redux/state";
-
-
+import store, {RootStateType} from "./redux/state";
 
 
 let rerenderEntireTree = (state: RootStateType) => {
     ReactDOM.render(
         <React.StrictMode>
             <App state={store.getState()}
-                 addPost={store.addPost.bind(store)}
-                 updateNewPostText={store.updateNewPostText.bind(store)}/>
+                 dispatch={store.dispatch.bind(store)}
+            />
         </React.StrictMode>,
         document.getElementById('root')
     );

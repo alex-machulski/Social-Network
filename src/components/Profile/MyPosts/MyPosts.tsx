@@ -9,11 +9,11 @@ function MyPosts(props: MyPostsType) {
     let postsElements = props.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount}/>);
 
     let addPost = () => {
-        props.addPost();
+        props.dispatch({type: "ADD-POST"});
     }
 
-    let changeNewPostTextCallback = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewPostText(e.currentTarget.value);
+    let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.dispatch({type: "UPDATE-NEW-POST-TEXT", newText: e.currentTarget.value});
     }
 
     return (
@@ -21,7 +21,7 @@ function MyPosts(props: MyPostsType) {
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea value={props.newPostText} onChange={changeNewPostTextCallback}/>
+                    <textarea value={props.newPostText} onChange={onPostChange}/>
                 </div>
                 <div>
                     <button onClick={addPost}>Add Post</button>
