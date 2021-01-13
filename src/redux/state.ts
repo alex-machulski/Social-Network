@@ -1,18 +1,33 @@
+import {ChangeEvent} from "react";
+
+const ADD_POST = "ADD-POST";
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+
 export type StoreType = {
     _state: RootStateType
     _callSubscriber: (state: RootStateType) => void
     subscribe: (observer: (state: RootStateType) => void) => void
     getState: () => RootStateType
-    dispatch: (action: AddPostActionType | UpdateNewPostTextActionType) => void
+    dispatch: (action: ActionsType) => void
 }
 
-type AddPostActionType = {
-    type: 'ADD-POST'
+export const addPostActionCreator = (): ActionsType => ({type: ADD_POST})
+
+export const updateNewPostTextActionCreator = (e: ChangeEvent<HTMLTextAreaElement>): ActionsType =>
+    ({
+        type: UPDATE_NEW_POST_TEXT,
+        newText: e.currentTarget.value
+    })
+
+export type AddPostActionType = {
+    type: typeof ADD_POST
 }
-type UpdateNewPostTextActionType = {
-    type: 'UPDATE-NEW-POST-TEXT'
+export type UpdateNewPostTextActionType = {
+    type: typeof UPDATE_NEW_POST_TEXT
     newText: string
 }
+
+export type ActionsType = AddPostActionType | UpdateNewPostTextActionType
 
 const store: StoreType = {
     _state: {
@@ -50,7 +65,7 @@ const store: StoreType = {
         this._callSubscriber = observer; //наблюдатель паттерн (observer)
     },
     dispatch(action: any) {
-        if (action.type === 'ADD-POST') {
+        if (action.type === ADD_POST) {
             let newPost: PostType = {
                 id: 5,
                 message: this._state.profilePage.newPostText,
@@ -59,8 +74,7 @@ const store: StoreType = {
             this._state.profilePage.posts.push(newPost);
             this._state.profilePage.newPostText = '';
             this._callSubscriber(this._state);
-        }
-        else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.newText;
             this._callSubscriber(this._state);
         }
@@ -78,7 +92,7 @@ export type AppType = {
             messages: Array<MessageType>
         }
     }
-    dispatch: (action: AddPostActionType | UpdateNewPostTextActionType) => void
+    dispatch: (action: ActionsType) => void
 }
 
 export type ProfileType = {
@@ -86,7 +100,7 @@ export type ProfileType = {
         posts: Array<PostType>
         newPostText: string
     }
-    dispatch: (action: AddPostActionType | UpdateNewPostTextActionType) => void
+    dispatch: (action: ActionsType) => void
 }
 
 export type DialogsType = {
@@ -98,7 +112,7 @@ export type DialogsType = {
 
 export type MyPostsType = {
     posts: Array<PostType>
-    dispatch: (action: AddPostActionType | UpdateNewPostTextActionType) => void
+    dispatch: (action: ActionsType) => void
     newPostText: string
 }
 
