@@ -2,6 +2,8 @@ import {ChangeEvent} from "react";
 
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
+const SEND_MESSAGE = "SEND-MESSAGE";
 
 export type StoreType = {
     _state: RootStateType
@@ -11,23 +13,32 @@ export type StoreType = {
     dispatch: (action: ActionsType) => void
 }
 
-export const addPostActionCreator = (): ActionsType => ({type: ADD_POST})
+//Action Creators
 
-export const updateNewPostTextActionCreator = (e: ChangeEvent<HTMLTextAreaElement>): ActionsType =>
+export const addPostActionCreator = () => ({type: ADD_POST} as const);
+
+export const updateNewPostTextActionCreator = (e: ChangeEvent<HTMLTextAreaElement>) =>
     ({
         type: UPDATE_NEW_POST_TEXT,
         newText: e.currentTarget.value
-    })
+    } as const);
 
-export type AddPostActionType = {
-    type: typeof ADD_POST
-}
-export type UpdateNewPostTextActionType = {
-    type: typeof UPDATE_NEW_POST_TEXT
-    newText: string
-}
+export const sendMessageCreator = () => ({type: SEND_MESSAGE} as const)
 
-export type ActionsType = AddPostActionType | UpdateNewPostTextActionType
+export const updateNewMessageBodyCreator = (e: ChangeEvent<HTMLTextAreaElement>) => ({
+    type: UPDATE_NEW_MESSAGE_BODY,
+    body: e.currentTarget.value
+} as const)
+
+// Action Types
+
+export type AddPostActionType = ReturnType<typeof addPostActionCreator>
+export type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextActionCreator>
+export type UpdateNewMessageBodyActionType = ReturnType<typeof updateNewMessageBodyCreator>
+export type SendMessageActionType = ReturnType<typeof sendMessageCreator>
+
+export type ActionsType = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyActionType |
+    SendMessageActionType;
 
 const store: StoreType = {
     _state: {
@@ -52,7 +63,8 @@ const store: StoreType = {
                 {id: 3, message: "Yo"},
                 {id: 4, message: "Bro!"},
                 {id: 5, message: "Hello!"}
-            ]
+            ],
+            newMessageBody: ""
         }
     },
     _callSubscriber(state: RootStateType) {
@@ -64,7 +76,7 @@ const store: StoreType = {
     subscribe(observer) {
         this._callSubscriber = observer; //наблюдатель паттерн (observer)
     },
-    dispatch(action: any) {
+    dispatch(action: ActionsType) {
         if (action.type === ADD_POST) {
             let newPost: PostType = {
                 id: 5,
@@ -74,8 +86,19 @@ const store: StoreType = {
             this._state.profilePage.posts.push(newPost);
             this._state.profilePage.newPostText = '';
             this._callSubscriber(this._state);
-        } else if (action.type === UPDATE_NEW_POST_TEXT) {
+        }
+        else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.newText;
+            this._callSubscriber(this._state);
+        }
+        else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
+            this._state.dialogsPage.newMessageBody = action.body;
+            this._callSubscriber(this._state);
+        }
+        else if (action.type === SEND_MESSAGE) {
+            let body = this._state.dialogsPage.newMessageBody;
+            this._state.dialogsPage.newMessageBody = "";
+            this._state.dialogsPage.messages.push({id: 6, message: body});
             this._callSubscriber(this._state);
         }
     }
@@ -90,9 +113,11 @@ export type AppType = {
         dialogsPage: {
             dialogs: Array<DialogItemType>
             messages: Array<MessageType>
+            newMessageBody: string
         }
     }
     dispatch: (action: ActionsType) => void
+    store: StoreType
 }
 
 export type ProfileType = {
@@ -101,13 +126,17 @@ export type ProfileType = {
         newPostText: string
     }
     dispatch: (action: ActionsType) => void
+    store: StoreType
 }
 
 export type DialogsType = {
     state: {
         dialogs: Array<DialogItemType>
         messages: Array<MessageType>
+        newMessageBody: string
     }
+    dispatch: (action: ActionsType) => void
+    store: StoreType
 }
 
 export type MyPostsType = {
@@ -140,6 +169,7 @@ export type RootStateType = {
     dialogsPage: {
         dialogs: Array<DialogItemType>
         messages: Array<MessageType>
+        newMessageBody: string
     }
 }
 
