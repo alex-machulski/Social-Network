@@ -12,7 +12,6 @@ function Profile(props: ProfileType) {
                      newPostText={props.profilePage.newPostText}
                      dispatch={props.dispatch}
             />
-
         </div>
     );
 }
