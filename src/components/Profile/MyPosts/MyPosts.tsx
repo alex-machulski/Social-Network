@@ -1,21 +1,18 @@
 import React, {ChangeEvent} from 'react';
 import pr from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer"
 import {MyPostsType} from "../../../redux/store";
-
-
 
 function MyPosts(props: MyPostsType) {
 
     let postsElements = props.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount}/>);
 
-    let addPost = () => {
-        props.dispatch(addPostActionCreator());
+    let onAddPost = () => {
+        props.addPost();
     }
 
     let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(updateNewPostTextActionCreator(e));
+        props.updateNewPostText(e);
     }
 
     return (
@@ -26,7 +23,7 @@ function MyPosts(props: MyPostsType) {
                     <textarea value={props.newPostText} onChange={onPostChange}/>
                 </div>
                 <div>
-                    <button onClick={addPost}>Add Post</button>
+                    <button onClick={onAddPost}>Add Post</button>
                 </div>
             </div>
             <div className={pr.posts}>

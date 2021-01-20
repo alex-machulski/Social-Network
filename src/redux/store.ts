@@ -1,9 +1,8 @@
-
-import profileReducer, {AddPostActionType,UpdateNewPostTextActionType} from "./profile-reducer";
+import profileReducer, {AddPostActionType, UpdateNewPostTextActionType} from "./profile-reducer";
 import dialogsReducer, {SendMessageActionType, UpdateNewMessageBodyActionType} from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
-import {CombinedState, Store } from "redux";
-
+import {CombinedState, Store} from "redux";
+import {ChangeEvent} from "react";
 
 export type StoreType = {
     _state: RootStateType
@@ -17,8 +16,7 @@ export type ReduxStoreType = Store<CombinedState<{
     profilePage: ProfilePageType;
     dialogsPage: DialogsPageType;
     sidebar: object;
-}>,
-    ActionsType>
+}>, ActionsType>
 
 // Action Types
 export type ActionsType = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyActionType |
@@ -52,7 +50,7 @@ const store: StoreType = {
         },
         sidebar: {}
     },
-    _callSubscriber(state: RootStateType) {
+    _callSubscriber() {
         console.log('state changed');
     },
     getState() {
@@ -90,8 +88,6 @@ export type ProfilePageType = {
 }
 
 export type ProfileType = {
-    profilePage: ProfilePageType
-    dispatch: (action: ActionsType) => void
     store: ReduxStoreType
 }
 
@@ -102,15 +98,24 @@ export type DialogsPageType = {
 }
 
 export type DialogsType = {
+    updateNewMessageBody: (body: string) => void
+    sendMessage: () => void
     dialogsPage: DialogsPageType
-    dispatch: (action: ActionsType) => void
-    store: ReduxStoreType
 }
 
 export type MyPostsType = {
     posts: Array<PostType>
-    dispatch: (action: ActionsType) => void
     newPostText: string
+    updateNewPostText: (e: ChangeEvent<HTMLTextAreaElement>) => void
+    addPost: () => void
+}
+
+export type MyPostsContainerType = {
+    store: ReduxStoreType
+}
+
+export type DialogsContainerType = {
+    store: ReduxStoreType
 }
 
 export type PostType = {
@@ -128,7 +133,5 @@ export type MessageType = {
     id: number
     message: string;
 }
-
-
 
 export default store;

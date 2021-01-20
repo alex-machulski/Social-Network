@@ -1,5 +1,4 @@
 import {ActionsType, DialogsPageType} from "./store";
-import {ChangeEvent} from "react";
 
 const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
 const SEND_MESSAGE = "SEND-MESSAGE";
@@ -40,9 +39,9 @@ const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsTy
 
 export const sendMessageCreator = () => ({type: SEND_MESSAGE} as const)
 
-export const updateNewMessageBodyCreator = (e: ChangeEvent<HTMLTextAreaElement>) => ({
+export const updateNewMessageBodyCreator = (body: string) => ({
     type: UPDATE_NEW_MESSAGE_BODY,
-    body: e.currentTarget.value
+    body: body
 } as const)
 
 export type UpdateNewMessageBodyActionType = ReturnType<typeof updateNewMessageBodyCreator>
