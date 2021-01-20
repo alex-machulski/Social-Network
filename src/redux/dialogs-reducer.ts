@@ -1,10 +1,28 @@
-import {ActionsType, DialogsPageType} from "./state";
+import {ActionsType, DialogsPageType} from "./store";
 import {ChangeEvent} from "react";
 
 const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
 const SEND_MESSAGE = "SEND-MESSAGE";
 
-const dialogsReducer = (state: DialogsPageType, action: ActionsType) => {
+let initialState: DialogsPageType = {
+    dialogs: [
+        {id: 1, name: "Dimych"},
+        {id: 2, name: "Andrey"},
+        {id: 3, name: "Sveta"},
+        {id: 4, name: "Victor"},
+        {id: 5, name: "Valera"}
+    ],
+    messages: [
+        {id: 1, message: "Hi!"},
+        {id: 2, message: "How are you?"},
+        {id: 3, message: "Yo"},
+        {id: 4, message: "Bro!"},
+        {id: 5, message: "Hello!"}
+    ],
+    newMessageBody: ""
+}
+
+const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsType) => {
 
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_BODY:

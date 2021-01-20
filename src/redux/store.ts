@@ -2,6 +2,8 @@
 import profileReducer, {AddPostActionType,UpdateNewPostTextActionType} from "./profile-reducer";
 import dialogsReducer, {SendMessageActionType, UpdateNewMessageBodyActionType} from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
+import {CombinedState, Store } from "redux";
+
 
 export type StoreType = {
     _state: RootStateType
@@ -10,6 +12,13 @@ export type StoreType = {
     getState: () => RootStateType
     dispatch: (action: ActionsType) => void
 }
+
+export type ReduxStoreType = Store<CombinedState<{
+    profilePage: ProfilePageType;
+    dialogsPage: DialogsPageType;
+    sidebar: object;
+}>,
+    ActionsType>
 
 // Action Types
 export type ActionsType = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyActionType |
@@ -20,7 +29,7 @@ const store: StoreType = {
         profilePage: {
             posts: [
                 {id: 1, message: "Hi, how are you?", likesCount: 12},
-                {id: 2, message: "It\'s my first post!", likesCount: 25}
+                {id: 2, message: "It's my first post!", likesCount: 25}
             ],
             newPostText: "it-kamasutra"
         },
@@ -72,7 +81,7 @@ export type AppType = {
         dialogsPage: DialogsPageType
     }
     dispatch: (action: ActionsType) => void
-    store: StoreType
+    store: ReduxStoreType
 }
 
 export type ProfilePageType = {
@@ -83,7 +92,7 @@ export type ProfilePageType = {
 export type ProfileType = {
     profilePage: ProfilePageType
     dispatch: (action: ActionsType) => void
-    store: StoreType
+    store: ReduxStoreType
 }
 
 export type DialogsPageType = {
@@ -95,7 +104,7 @@ export type DialogsPageType = {
 export type DialogsType = {
     dialogsPage: DialogsPageType
     dispatch: (action: ActionsType) => void
-    store: StoreType
+    store: ReduxStoreType
 }
 
 export type MyPostsType = {
