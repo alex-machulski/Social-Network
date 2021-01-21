@@ -3,7 +3,6 @@ import s from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {DialogsType} from "../../redux/store";
-
 function Dialogs(props: DialogsType) {
 
     let state = props.dialogsPage;

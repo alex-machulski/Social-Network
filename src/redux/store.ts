@@ -74,12 +74,12 @@ export type RootStateType = {
 }
 
 export type AppType = {
-    state: {
-        profilePage: ProfilePageType
-        dialogsPage: DialogsPageType
-    }
-    dispatch: (action: ActionsType) => void
-    store: ReduxStoreType
+    // state: {
+    //     profilePage: ProfilePageType
+    //     dialogsPage: DialogsPageType
+    // }
+    // dispatch: (action: ActionsType) => void
+    // store: ReduxStoreType
 }
 
 export type ProfilePageType = {
@@ -88,7 +88,7 @@ export type ProfilePageType = {
 }
 
 export type ProfileType = {
-    store: ReduxStoreType
+    // store: ReduxStoreType
 }
 
 export type DialogsPageType = {
@@ -111,11 +111,11 @@ export type MyPostsType = {
 }
 
 export type MyPostsContainerType = {
-    store: ReduxStoreType
+    // store: ReduxStoreType
 }
 
 export type DialogsContainerType = {
-    store: ReduxStoreType
+    // store: ReduxStoreType
 }
 
 export type PostType = {
