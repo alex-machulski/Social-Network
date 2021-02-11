@@ -80,21 +80,21 @@ const usersReducer = (state: UsersStateType = initialState, action: ActionsType)
     }
 }
 
-export const followAC = (userID: number) => ({type: FOLLOW, userID} as const);
-export const unfollowAC = (userID: number) => ({type: UNFOLLOW, userID} as const);
-export const setUsersAC = (users: Array<UserType>) => ({type: SET_USERS, users} as const);
-export const setCurrentPageAC = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const);
-export const setTotalUsersCountAC = (totalUsersCount: number) => ({
+export const follow = (userID: number) => ({type: FOLLOW, userID} as const);
+export const unfollow = (userID: number) => ({type: UNFOLLOW, userID} as const);
+export const setUsers = (users: Array<UserType>) => ({type: SET_USERS, users} as const);
+export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const);
+export const setTotalUsersCount = (totalUsersCount: number) => ({
     type: SET_TOTAL_USERS_COUNT,
     totalUsersCount
 } as const);
-export const toggleIsFetchingAC = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching: isFetching} as const);
+export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching: isFetching} as const);
 
-export type FollowActionType = ReturnType<typeof followAC>;
-export type UnfollowActionType = ReturnType<typeof unfollowAC>;
-export type SetUsersActionType = ReturnType<typeof setUsersAC>;
-export type SetCurrentPageActionType = ReturnType<typeof setCurrentPageAC>;
-export type SetTotalUsersCountActionType = ReturnType<typeof setTotalUsersCountAC>;
-export type ToggleIsFetchingActionType = ReturnType<typeof toggleIsFetchingAC>;
+export type FollowActionType = ReturnType<typeof follow>;
+export type UnfollowActionType = ReturnType<typeof unfollow>;
+export type SetUsersActionType = ReturnType<typeof setUsers>;
+export type SetCurrentPageActionType = ReturnType<typeof setCurrentPage>;
+export type SetTotalUsersCountActionType = ReturnType<typeof setTotalUsersCount>;
+export type ToggleIsFetchingActionType = ReturnType<typeof toggleIsFetching>;
 
 export default usersReducer;
