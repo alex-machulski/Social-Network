@@ -8,7 +8,8 @@ import {
     SetCurrentPageActionType,
     SetTotalUsersCountActionType,
     SetUsersActionType,
-    UnfollowActionType
+    UnfollowActionType,
+    ToggleIsFetchingActionType
 } from "./users-reducer";
 
 export type StoreType = {
@@ -28,7 +29,7 @@ export type ReduxStoreType = Store<CombinedState<{
 // Action Types
 export type ActionsType = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyActionType |
     SendMessageActionType | FollowActionType | UnfollowActionType | SetUsersActionType | SetCurrentPageActionType |
-    SetTotalUsersCountActionType;
+    SetTotalUsersCountActionType | ToggleIsFetchingActionType;
 
 const store: StoreType = {
     _state: {

@@ -18,6 +18,4 @@ export type AppStateType = ReturnType<RootReducerType>
 
 const store = createStore(reducers);
 
-
-
 export default store;
