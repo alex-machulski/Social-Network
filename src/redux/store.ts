@@ -3,7 +3,13 @@ import dialogsReducer, {SendMessageActionType, UpdateNewMessageBodyActionType} f
 import sidebarReducer from "./sidebar-reducer";
 import {CombinedState, Store} from "redux";
 import {ChangeEvent} from "react";
-import {FollowActionType, SetUsersActionType, UnfollowActionType} from "./users-reducer";
+import {
+    FollowActionType,
+    SetCurrentPageActionType,
+    SetTotalUsersCountActionType,
+    SetUsersActionType,
+    UnfollowActionType
+} from "./users-reducer";
 
 export type StoreType = {
     _state: RootStateType
@@ -21,7 +27,8 @@ export type ReduxStoreType = Store<CombinedState<{
 
 // Action Types
 export type ActionsType = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyActionType |
-    SendMessageActionType | FollowActionType | UnfollowActionType | SetUsersActionType;
+    SendMessageActionType | FollowActionType | UnfollowActionType | SetUsersActionType | SetCurrentPageActionType |
+    SetTotalUsersCountActionType;
 
 const store: StoreType = {
     _state: {
