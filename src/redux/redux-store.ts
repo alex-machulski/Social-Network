@@ -16,6 +16,9 @@ let reducers = combineReducers({
 type RootReducerType = typeof reducers;
 export type AppStateType = ReturnType<RootReducerType>
 
-const store = createStore(reducers);
+let store = createStore(reducers);
+
+// @ts-ignore
+window.store = store
 
 export default store;
