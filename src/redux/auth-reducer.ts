@@ -1,6 +1,6 @@
 import {ActionsType} from "./store";
 
-const SET_USER_DATA = "SET_USER_DATA"
+const SET_USER_DATA = "SET_USER_DATA";
 
 type AuthType = {
     id: number | null
