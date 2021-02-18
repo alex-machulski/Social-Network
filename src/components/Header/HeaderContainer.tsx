@@ -5,9 +5,7 @@ import {connect} from "react-redux";
 import {setAuthUserDataAC} from "../../redux/auth-reducer";
 import {AppStateType} from "../../redux/redux-store";
 
-type HeaderContainerPropsType = MapStatePropsType & {
-    setAuthUserDataAC: (id: number, email: string, login: string) => void
-}
+type HeaderContainerPropsType = MapStatePropsType & MapDispatchPropsType;
 
 class HeaderContainer extends React.Component<HeaderContainerPropsType, {}> {
     componentDidMount() {
@@ -31,9 +29,15 @@ type MapStatePropsType = {
     login: string | null
 }
 
+type MapDispatchPropsType = {
+    setAuthUserDataAC: (id: number, email: string, login: string) => void
+}
+
 const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     isAuth: state.auth.isAuth,
     login: state.auth.login
 });
 
-export default connect(mapStateToProps, {setAuthUserDataAC})(HeaderContainer);
+export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {
+    setAuthUserDataAC
+})(HeaderContainer);
