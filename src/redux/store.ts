@@ -13,7 +13,7 @@ import {
     SetTotalUsersCountActionType,
     SetUsersActionType,
     UnfollowActionType,
-    ToggleIsFetchingActionType
+    ToggleIsFetchingActionType, ToggleIsFollowingProgressActionType
 } from "./users-reducer";
 import {SetUserDataActionType} from "./auth-reducer";
 
@@ -35,7 +35,8 @@ export type ReduxStoreType = Store<CombinedState<{
 // Action Types
 export type ActionsType = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyActionType |
     SendMessageActionType | FollowActionType | UnfollowActionType | SetUsersActionType | SetCurrentPageActionType |
-    SetTotalUsersCountActionType | ToggleIsFetchingActionType | SetUserProfileActionType | SetUserDataActionType;
+    SetTotalUsersCountActionType | ToggleIsFetchingActionType | SetUserProfileActionType | SetUserDataActionType |
+    ToggleIsFollowingProgressActionType;
 
 // const store: StoreType = {
 //     _state: {
