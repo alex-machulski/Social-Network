@@ -1,5 +1,8 @@
 import {ActionsType, PostType, ProfilePageType} from "./store";
 import {ChangeEvent} from "react";
+import {usersAPI} from "../api/api";
+import {ThunkAction, ThunkDispatch} from "redux-thunk";
+import {AppStateType} from "./redux-store";
 
 const ADD_POST = "ADD_POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT";
@@ -25,7 +28,7 @@ export type ProfileType = {
         small: string | undefined
     }
     userId: number
-}
+};
 
 let initialState: ProfilePageType = {
     posts: [
@@ -34,7 +37,7 @@ let initialState: ProfilePageType = {
     ],
     newPostText: "it-kamasutra",
     profile: null
-}
+};
 
 const profileReducer = (state: ProfilePageType = initialState, action: ActionsType) => {
 
@@ -74,6 +77,17 @@ export const updateNewPostTextActionCreator = (e: ChangeEvent<HTMLTextAreaElemen
     } as const);
 
 export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const);
+
+type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsType>;
+
+export const getUserProfile = (userId: string): ThunkType => {
+    return (dispatch: ThunkDispatch<AppStateType, unknown, ActionsType>) => {
+        usersAPI.getProfile(userId)
+            .then(response => {
+                dispatch(setUserProfile(response.data));
+            })
+    }
+};
 
 export type AddPostActionType = ReturnType<typeof addPostActionCreator>;
 export type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextActionCreator>;
