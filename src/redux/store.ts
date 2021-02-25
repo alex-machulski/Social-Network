@@ -118,6 +118,7 @@ export type DialogsType = {
     updateNewMessageBody: (body: string) => void
     sendMessage: () => void
     dialogsPage: DialogsPageType
+    isAuth: boolean
 }
 
 export type MyPostsType = {
