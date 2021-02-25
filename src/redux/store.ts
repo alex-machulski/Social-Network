@@ -8,11 +8,11 @@ import sidebarReducer from "./sidebar-reducer";
 import {CombinedState, Store} from "redux";
 import {ChangeEvent} from "react";
 import {
-    FollowActionType,
+    FollowSuccessActionType,
     SetCurrentPageActionType,
     SetTotalUsersCountActionType,
     SetUsersActionType,
-    UnfollowActionType,
+    UnfollowSuccessActionType,
     ToggleIsFetchingActionType, ToggleIsFollowingProgressActionType
 } from "./users-reducer";
 import {SetUserDataActionType} from "./auth-reducer";
@@ -34,7 +34,7 @@ export type ReduxStoreType = Store<CombinedState<{
 
 // Action Types
 export type ActionsType = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyActionType |
-    SendMessageActionType | FollowActionType | UnfollowActionType | SetUsersActionType | SetCurrentPageActionType |
+    SendMessageActionType | FollowSuccessActionType | UnfollowSuccessActionType | SetUsersActionType | SetCurrentPageActionType |
     SetTotalUsersCountActionType | ToggleIsFetchingActionType | SetUserProfileActionType | SetUserDataActionType |
     ToggleIsFollowingProgressActionType;
 
