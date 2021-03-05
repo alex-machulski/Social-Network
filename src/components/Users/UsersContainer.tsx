@@ -11,6 +11,7 @@ import React from "react";
 
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 type UsersContainerType = MapStatePropsType & MapDispatchPropsType;
 
@@ -71,6 +72,13 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
     }
 }
 
+export default withAuthRedirect(connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {
+    follow,
+    unfollow,
+    setCurrentPage,
+    getUsers
+})(UsersContainer));
+
 // let mapDispatchToProps = (dispatch: Dispatch<ActionsType>): MapDispatchPropsType => {
 //     return {
 //         follow: (userID: number) => {
@@ -93,10 +101,3 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
 //         }
 //     }
 // }
-
-export default connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, {
-    follow,
-    unfollow,
-    setCurrentPage,
-    getUsers
-})(UsersContainer);
