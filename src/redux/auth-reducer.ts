@@ -1,6 +1,5 @@
-import {ActionsType} from "./store";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {AppStateType} from "./redux-store";
+import {ActionsType, AppStateType} from "./redux-store";
 import {authAPI} from "../api/api";
 
 const SET_USER_DATA = "SET_USER_DATA";

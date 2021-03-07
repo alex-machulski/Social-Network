@@ -1,7 +1,20 @@
-import {ActionsType, DialogsPageType} from "./store";
-
+import {ActionsType} from "./redux-store";
 const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
 const SEND_MESSAGE = "SEND-MESSAGE";
+
+export type MessageType = {
+    id: number
+    message: string;
+}
+export type DialogItemType = {
+    name: string
+    id: number
+}
+export type DialogsPageType = {
+    dialogs: Array<DialogItemType>
+    messages: Array<MessageType>
+    newMessageBody: string
+}
 
 let initialState: DialogsPageType = {
     dialogs: [

@@ -1,7 +1,13 @@
 import React, {ChangeEvent} from 'react';
 import pr from './MyPosts.module.css';
-import Post from "./Post/Post";
-import {MyPostsType} from "../../../redux/store";
+import Post, {PostType} from "./Post/Post";
+
+export type MyPostsType = {
+    posts: Array<PostType>
+    newPostText: string
+    updateNewPostText: (e: ChangeEvent<HTMLTextAreaElement>) => void
+    addPost: () => void
+}
 
 function MyPosts(props: MyPostsType) {
 

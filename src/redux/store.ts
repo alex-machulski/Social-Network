@@ -1,21 +1,7 @@
-import profileReducer, {
-    AddPostActionType, ProfileType,
-    SetUserProfileActionType,
-    UpdateNewPostTextActionType
-} from "./profile-reducer";
-import dialogsReducer, {SendMessageActionType, UpdateNewMessageBodyActionType} from "./dialogs-reducer";
-import sidebarReducer from "./sidebar-reducer";
+import {ProfilePageType} from "./profile-reducer";
 import {CombinedState, Store} from "redux";
-import {ChangeEvent} from "react";
-import {
-    FollowSuccessActionType,
-    SetCurrentPageActionType,
-    SetTotalUsersCountActionType,
-    SetUsersActionType,
-    UnfollowSuccessActionType,
-    ToggleIsFetchingActionType, ToggleIsFollowingProgressActionType
-} from "./users-reducer";
-import {SetUserDataActionType} from "./auth-reducer";
+import {ActionsType} from "./redux-store";
+import {DialogsPageType} from "./dialogs-reducer";
 
 
 export type StoreType = {
@@ -31,12 +17,6 @@ export type ReduxStoreType = Store<CombinedState<{
     dialogsPage: DialogsPageType;
     sidebar: object;
 }>, ActionsType>
-
-// Action Types
-export type ActionsType = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageBodyActionType |
-    SendMessageActionType | FollowSuccessActionType | UnfollowSuccessActionType | SetUsersActionType | SetCurrentPageActionType |
-    SetTotalUsersCountActionType | ToggleIsFetchingActionType | SetUserProfileActionType | SetUserDataActionType |
-    ToggleIsFollowingProgressActionType;
 
 // const store: StoreType = {
 //     _state: {
@@ -98,35 +78,9 @@ export type AppType = {
     // store: ReduxStoreType
 }
 
-export type ProfilePageType = {
-    posts: Array<PostType>
-    newPostText: string
-    profile: ProfileType | null
-}
-
 // export type ProfileType = {
 //     // store: ReduxStoreType
 // }
-
-export type DialogsPageType = {
-    dialogs: Array<DialogItemType>
-    messages: Array<MessageType>
-    newMessageBody: string
-}
-
-export type DialogsType = {
-    updateNewMessageBody: (body: string) => void
-    sendMessage: () => void
-    dialogsPage: DialogsPageType
-    isAuth: boolean
-}
-
-export type MyPostsType = {
-    posts: Array<PostType>
-    newPostText: string
-    updateNewPostText: (e: ChangeEvent<HTMLTextAreaElement>) => void
-    addPost: () => void
-}
 
 export type MyPostsContainerType = {
     // store: ReduxStoreType
@@ -134,22 +88,6 @@ export type MyPostsContainerType = {
 
 export type DialogsContainerType = {
     // store: ReduxStoreType
-}
-
-export type PostType = {
-    id: number
-    message: string
-    likesCount: number
-}
-
-export type DialogItemType = {
-    name: string
-    id: number
-}
-
-export type MessageType = {
-    id: number
-    message: string;
 }
 
 

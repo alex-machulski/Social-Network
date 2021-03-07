@@ -2,7 +2,14 @@ import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css';
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {DialogsType} from "../../redux/store";
+import {DialogsPageType} from "../../redux/dialogs-reducer";
+
+export type DialogsType = {
+    updateNewMessageBody: (body: string) => void
+    sendMessage: () => void
+    dialogsPage: DialogsPageType
+    isAuth: boolean
+}
 
 function Dialogs(props: DialogsType) {
 

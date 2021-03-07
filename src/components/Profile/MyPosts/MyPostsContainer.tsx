@@ -2,9 +2,9 @@ import {ChangeEvent} from 'react';
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer"
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
-import {AppStateType} from "../../../redux/redux-store";
-import {ActionsType, PostType} from "../../../redux/store";
+import {ActionsType, AppStateType} from "../../../redux/redux-store";
 import {Dispatch} from "redux";
+import {PostType} from "./Post/Post";
 
 type MapStatePropsType = {
     posts: Array<PostType>
