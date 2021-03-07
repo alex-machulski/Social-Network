@@ -18,6 +18,7 @@ import usersReducer, {
 } from "./users-reducer";
 import authReducer, {SetUserDataActionType} from "./auth-reducer";
 import thunkMiddleware from "redux-thunk";
+import {reducer as formReducer} from "redux-form";
 
 export type StoreType = typeof store;
 
@@ -26,7 +27,8 @@ let reducers = combineReducers({
     dialogsPage: dialogsReducer,
     sidebar: sidebarReducer,
     usersPage: usersReducer,
-    auth: authReducer
+    auth: authReducer,
+    form: formReducer
 });
 
 type RootReducerType = typeof reducers;
