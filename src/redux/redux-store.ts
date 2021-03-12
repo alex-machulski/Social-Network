@@ -3,9 +3,9 @@ import profileReducer, {
     AddPostActionType,
     SetStatusActionType,
     SetUserProfileActionType,
-    UpdateNewPostTextActionType
+
 } from "./profile-reducer";
-import dialogsReducer, {SendMessageActionType, UpdateNewMessageBodyActionType} from "./dialogs-reducer";
+import dialogsReducer, {SendMessageActionType} from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
 import usersReducer, {
     FollowSuccessActionType,
@@ -38,8 +38,6 @@ let store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 export type ActionsType =
     AddPostActionType
-    | UpdateNewPostTextActionType
-    | UpdateNewMessageBodyActionType
     | SendMessageActionType
     | FollowSuccessActionType
     | UnfollowSuccessActionType
@@ -55,4 +53,4 @@ export type ActionsType =
 // @ts-ignore
 window.store = store
 
-export default store;// Action Types
+export default store;

@@ -1,5 +1,4 @@
-import {ChangeEvent} from 'react';
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer"
+import {addPostActionCreator} from "../../../redux/profile-reducer"
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 import {ActionsType, AppStateType} from "../../../redux/redux-store";
@@ -8,29 +7,22 @@ import {PostType} from "./Post/Post";
 
 type MapStatePropsType = {
     posts: Array<PostType>
-    newPostText: string
 }
 
 type MapDispatchPropsType = {
-    updateNewPostText: (e: ChangeEvent<HTMLTextAreaElement>) => void
-    addPost: () => void
+    addPost: (newPostText: string) => void
 }
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
-        posts: state.profilePage.posts,
-        newPostText: state.profilePage.newPostText
+        posts: state.profilePage.posts
     }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<ActionsType>): MapDispatchPropsType => {
     return {
-        updateNewPostText: (e: ChangeEvent<HTMLTextAreaElement>) => {
-            let action = updateNewPostTextActionCreator(e);
-            dispatch(action);
-        },
-        addPost: () => {
-            dispatch(addPostActionCreator());
+        addPost: (newPostText: string) => {
+            dispatch(addPostActionCreator(newPostText));
         }
     }
 }

@@ -1,11 +1,9 @@
-import {ChangeEvent} from "react";
 import {profileAPI, usersAPI} from "../api/api";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {ActionsType, AppStateType} from "./redux-store";
 import {PostType} from "../components/Profile/MyPosts/Post/Post";
 
 const ADD_POST = "ADD_POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_STATUS = "SET_STATUS";
 
@@ -33,7 +31,6 @@ export type ProfileType = {
 
 export type ProfilePageType = {
     posts: Array<PostType>
-    newPostText: string
     profile: ProfileType | null
     status: string
 }
@@ -43,7 +40,6 @@ let initialState: ProfilePageType = {
         {id: 1, message: "Hi, how are you?", likesCount: 12},
         {id: 2, message: "It's my first post!", likesCount: 25}
     ],
-    newPostText: "it-kamasutra",
     profile: null,
     status: ""
 };
@@ -54,19 +50,13 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
         case ADD_POST: {
             let newPost: PostType = {
                 id: 5,
-                message: state.newPostText,
+                message: action.newPostText,
                 likesCount: 0
             };
             return {
                 ...state,
                 posts: [...state.posts, newPost],
                 newPostText: ""
-            };
-        }
-        case UPDATE_NEW_POST_TEXT: {
-            return {
-                ...state,
-                newPostText: action.newText
             };
         }
         case SET_USER_PROFILE: {
@@ -80,13 +70,7 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
     }
 }
 
-export const addPostActionCreator = () => ({type: ADD_POST} as const);
-
-export const updateNewPostTextActionCreator = (e: ChangeEvent<HTMLTextAreaElement>) =>
-    ({
-        type: UPDATE_NEW_POST_TEXT,
-        newText: e.currentTarget.value
-    } as const);
+export const addPostActionCreator = (newPostText: string) => ({type: ADD_POST, newPostText} as const);
 
 export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const);
 export const setStatus = (status: string) => ({type: SET_STATUS, status} as const);
@@ -123,7 +107,6 @@ export const updateStatus = (status: string): ThunkType => {
 };
 
 export type AddPostActionType = ReturnType<typeof addPostActionCreator>;
-export type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextActionCreator>;
 export type SetUserProfileActionType = ReturnType<typeof setUserProfile>;
 export type SetStatusActionType = ReturnType<typeof setStatus>;
 
