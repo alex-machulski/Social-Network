@@ -77,7 +77,7 @@ export const setStatus = (status: string) => ({type: SET_STATUS, status} as cons
 
 type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsType>;
 
-export const getUserProfile = (userId: string): ThunkType => {
+export const getUserProfile = (userId: number): ThunkType => {
     return (dispatch: ThunkDispatch<AppStateType, unknown, ActionsType>) => {
         usersAPI.getProfile(userId)
             .then(response => {
@@ -86,7 +86,7 @@ export const getUserProfile = (userId: string): ThunkType => {
     }
 };
 
-export const getStatus = (userId: string): ThunkType => {
+export const getStatus = (userId: number): ThunkType => {
     return (dispatch: ThunkDispatch<AppStateType, unknown, ActionsType>) => {
         profileAPI.getStatus(userId)
             .then(response => {
