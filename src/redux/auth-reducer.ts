@@ -1,6 +1,6 @@
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {ActionsType, AppStateType} from "./redux-store";
-import {authAPI} from "../api/api";
+import {authAPI, ResultCodesEnum} from "../api/api";
 import {FormAction, stopSubmit} from "redux-form";
 
 const SET_USER_DATA = "SET_USER_DATA";
@@ -42,9 +42,9 @@ export const getAuthUserData = (): ThunkType => {
     return (dispatch: ThunkDispatch<AppStateType, unknown, ActionsType>) => {
         authAPI.me()
             .then(response => {
-                debugger;
-                if (response.data.resultCode === 0) {
-                    let {id, email, login} = response.data.data;
+
+                if (response.resultCode === ResultCodesEnum.Success) {
+                    let {id, email, login} = response.data;
                     dispatch(setAuthUserData(id, email, login, true));
                 }
             })
@@ -55,10 +55,11 @@ export const login = (email: string, password: string, rememberMe: boolean): Thu
     return (dispatch: ThunkDispatch<AppStateType, unknown, ActionsType | FormAction>) => {
         authAPI.login(email, password, rememberMe)
             .then(response => {
-                if (response.data.resultCode === 0) {
+                debugger;
+                if (response.resultCode === ResultCodesEnum.Success) {
                     dispatch(getAuthUserData());
                 } else {
-                    let msg = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
+                    let msg = response.messages.length > 0 ? response.messages[0] : "Some error"
                     dispatch(stopSubmit("login", {_error: msg}));
                 }
             })
@@ -69,7 +70,7 @@ export const logout = (): ThunkType => {
     return (dispatch: ThunkDispatch<AppStateType, unknown, ActionsType>) => {
         authAPI.logout()
             .then(response => {
-                if (response.data.resultCode === 0) {
+                if (response.resultCode === 0) {
                     dispatch(setAuthUserData(null, null, null, false));
                 }
             })
