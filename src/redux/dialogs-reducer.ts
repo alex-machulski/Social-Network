@@ -31,7 +31,7 @@ let initialState: DialogsPageType = {
     ],
 }
 
-const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsType) => {
+const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsType): DialogsPageType => {
 
     switch (action.type) {
         case SEND_MESSAGE:

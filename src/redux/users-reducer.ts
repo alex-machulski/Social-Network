@@ -31,7 +31,7 @@ type UsersStateType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    followingInProgress: Array<number>
+    followingInProgress: Array<number> // array of user's id
 }
 
 let initialState: UsersStateType = {
@@ -106,6 +106,14 @@ export const toggleIsFollowingProgress = (isFetching: boolean, userId: number) =
     isFetching, userId
 } as const);
 
+export type FollowSuccessActionType = ReturnType<typeof followSuccess>;
+export type UnfollowSuccessActionType = ReturnType<typeof unfollowSuccess>;
+export type SetUsersActionType = ReturnType<typeof setUsers>;
+export type SetCurrentPageActionType = ReturnType<typeof setCurrentPage>;
+export type SetTotalUsersCountActionType = ReturnType<typeof setTotalUsersCount>;
+export type ToggleIsFetchingActionType = ReturnType<typeof toggleIsFetching>;
+export type ToggleIsFollowingProgressActionType = ReturnType<typeof toggleIsFollowingProgress>;
+
 type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsType>
 
 export const getUsers = (currentPage: number, pageSize: number): ThunkType => {
@@ -146,12 +154,5 @@ export const unfollow = (userId: number): ThunkType => {
     }
 }
 
-export type FollowSuccessActionType = ReturnType<typeof followSuccess>;
-export type UnfollowSuccessActionType = ReturnType<typeof unfollowSuccess>;
-export type SetUsersActionType = ReturnType<typeof setUsers>;
-export type SetCurrentPageActionType = ReturnType<typeof setCurrentPage>;
-export type SetTotalUsersCountActionType = ReturnType<typeof setTotalUsersCount>;
-export type ToggleIsFetchingActionType = ReturnType<typeof toggleIsFetching>;
-export type ToggleIsFollowingProgressActionType = ReturnType<typeof toggleIsFollowingProgress>;
 
 export default usersReducer;

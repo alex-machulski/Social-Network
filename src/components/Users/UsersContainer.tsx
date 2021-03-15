@@ -16,7 +16,7 @@ import {compose} from "redux";
 
 type UsersContainerType = MapStatePropsType & MapDispatchPropsType;
 
-class UsersContainer extends React.Component<UsersContainerType, {}> {
+class UsersContainer extends React.Component<UsersContainerType> {
 
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize);

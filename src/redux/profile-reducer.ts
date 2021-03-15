@@ -1,7 +1,6 @@
 import {profileAPI, usersAPI} from "../api/api";
 import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {ActionsType, AppStateType} from "./redux-store";
-import {PostType} from "../components/Profile/MyPosts/Post/Post";
 
 const ADD_POST = "ADD_POST";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
@@ -29,6 +28,11 @@ export type ProfileType = {
     userId: number
 };
 
+export type PostType = {
+    id: number
+    message: string
+    likesCount: number
+}
 export type ProfilePageType = {
     posts: Array<PostType>
     profile: ProfileType | null
@@ -44,7 +48,7 @@ let initialState: ProfilePageType = {
     status: ""
 };
 
-const profileReducer = (state: ProfilePageType = initialState, action: ActionsType) => {
+const profileReducer = (state: ProfilePageType = initialState, action: ActionsType): ProfilePageType => {
 
     switch (action.type) {
         case ADD_POST: {
@@ -56,7 +60,7 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
             return {
                 ...state,
                 posts: [...state.posts, newPost],
-                newPostText: ""
+                //newPostText: ""
             };
         }
         case SET_USER_PROFILE: {
@@ -71,9 +75,12 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
 }
 
 export const addPostActionCreator = (newPostText: string) => ({type: ADD_POST, newPostText} as const);
-
 export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const);
 export const setStatus = (status: string) => ({type: SET_STATUS, status} as const);
+
+export type AddPostActionType = ReturnType<typeof addPostActionCreator>;
+export type SetUserProfileActionType = ReturnType<typeof setUserProfile>;
+export type SetStatusActionType = ReturnType<typeof setStatus>;
 
 type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsType>;
 
@@ -106,8 +113,5 @@ export const updateStatus = (status: string): ThunkType => {
     }
 };
 
-export type AddPostActionType = ReturnType<typeof addPostActionCreator>;
-export type SetUserProfileActionType = ReturnType<typeof setUserProfile>;
-export type SetStatusActionType = ReturnType<typeof setStatus>;
 
 export default profileReducer;
