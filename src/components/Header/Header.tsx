@@ -5,7 +5,7 @@ import styles from './Header.module.css';
 type HeaderPropsType = {
     isAuth: boolean
     login: string | null
-    getAuthUserData: () => void
+    //getAuthUserData: () => void
     logout: () => void
 }
 

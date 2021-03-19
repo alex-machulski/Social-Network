@@ -45,7 +45,7 @@ export enum ResultCodeForCaptcha {
     CaptchaIsRequired = 10
 }
 
-type MeResponseType = {
+export type MeResponseType = {
     data: {
         id: number
         email: string

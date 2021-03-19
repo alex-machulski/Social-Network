@@ -2,7 +2,7 @@ import React from "react";
 import s from "./FormsControls.module.css";
 import {WrappedFieldProps} from "redux-form";
 
-export const FormControl: React.FC<any> = ({input, meta, children, ...restProps}) => {
+export const FormControl: React.FC<WrappedFieldProps> = ({input, meta, children, ...restProps}) => {
     const hasError = meta.touched && meta.error;
 
     return (

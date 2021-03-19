@@ -19,7 +19,7 @@ let initialState = {
     isAuth: false
 };
 
-const authReducer = (state: AuthType = initialState, action: ActionsType): AuthType => {
+export const authReducer = (state: AuthType = initialState, action: ActionsType): AuthType => {
     switch (action.type) {
         case SET_USER_DATA:
             return {
@@ -38,11 +38,10 @@ export const setAuthUserData = (id: number | null, email: string | null, login: 
 
 type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsType>;
 
-export const getAuthUserData = (): ThunkType => {
+export const getAuthUserData = (): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> => {
     return (dispatch: ThunkDispatch<AppStateType, unknown, ActionsType>) => {
-        authAPI.me()
+        return authAPI.me()
             .then(response => {
-
                 if (response.resultCode === ResultCodesEnum.Success) {
                     let {id, email, login} = response.data;
                     dispatch(setAuthUserData(id, email, login, true));

@@ -19,6 +19,7 @@ import usersReducer, {
 import authReducer, {SetUserDataActionType} from "./auth-reducer";
 import thunkMiddleware from "redux-thunk";
 import {reducer as formReducer} from "redux-form";
+import appReducer, {InitializedSuccessActionType} from "./app-reducer";
 
 export type StoreType = typeof store;
 
@@ -28,7 +29,8 @@ let reducers = combineReducers({
     sidebar: sidebarReducer,
     usersPage: usersReducer,
     auth: authReducer,
-    form: formReducer
+    form: formReducer,
+    app: appReducer
 });
 
 type RootReducerType = typeof reducers;
@@ -48,7 +50,8 @@ export type ActionsType =
     | SetUserProfileActionType
     | SetUserDataActionType
     | ToggleIsFollowingProgressActionType
-    | SetStatusActionType;
+    | SetStatusActionType
+    | InitializedSuccessActionType
 
 // @ts-ignore
 window.store = store
