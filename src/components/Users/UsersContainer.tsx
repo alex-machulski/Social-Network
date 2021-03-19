@@ -3,7 +3,7 @@ import {AppStateType} from "../../redux/redux-store";
 import {
     follow,
     unfollow,
-    getUsers,
+    requestUsers,
     setCurrentPage,
     UserType
 } from "../../redux/users-reducer";
@@ -12,6 +12,13 @@ import React from "react";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 import {compose} from "redux";
+import {
+    getCurrentPage, getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from "../../redux/users-selectors";
 
 type UsersContainerType = MapStatePropsType & MapDispatchPropsType;
 
@@ -61,14 +68,25 @@ type MapDispatchPropsType = {
     getUsers: (currentPage: number, pageSize: number) => void
 }
 
+// let mapStateToProps = (state: AppStateType): MapStatePropsType => {
+//     return {
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         followingInProgress: state.usersPage.followingInProgress
+//     }
+// }
+
 let mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state)
     }
 }
 
@@ -78,7 +96,7 @@ export default compose<React.ComponentType>(
     follow,
     unfollow,
     setCurrentPage,
-    getUsers})
+    getUsers: requestUsers})
 )(UsersContainer);
 
 // let mapDispatchToProps = (dispatch: Dispatch<ActionsType>): MapDispatchPropsType => {
