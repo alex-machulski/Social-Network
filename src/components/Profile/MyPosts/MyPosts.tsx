@@ -13,7 +13,7 @@ export type MyPostsType = {
     addPost: (newPostText: string) => void
 }
 
-function MyPosts(props: MyPostsType) {
+const MyPosts = React.memo((props: MyPostsType) => {
 
     let postsElements = props.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount}/>);
 
@@ -30,7 +30,7 @@ function MyPosts(props: MyPostsType) {
             </div>
         </div>
     );
-}
+})
 
 type AddNewPostFormType = {
     newPostText: string
