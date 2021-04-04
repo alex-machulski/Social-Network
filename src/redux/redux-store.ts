@@ -1,6 +1,6 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import profileReducer, {
-    AddPostActionType,
+    AddPostActionType, DeletePostActionType,
     SetStatusActionType,
     SetUserProfileActionType,
 
@@ -52,6 +52,7 @@ export type ActionsType =
     | ToggleIsFollowingProgressActionType
     | SetStatusActionType
     | InitializedSuccessActionType
+    | DeletePostActionType
 
 // @ts-ignore
 window.store = store

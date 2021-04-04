@@ -15,7 +15,10 @@ export type MyPostsType = {
 
 const MyPosts = React.memo((props: MyPostsType) => {
 
-    let postsElements = props.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount}/>);
+    let postsElements =
+        [...props.posts]
+            .reverse()
+            .map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount}/>);
 
     let onAddPost = (values: AddNewPostFormType) => {
         props.addPost(values.newPostText);
