@@ -3,7 +3,7 @@ import {ActionsType, AppStateType} from "./redux-store";
 import {authAPI, ResultCodesEnum} from "../api/api";
 import {FormAction, stopSubmit} from "redux-form";
 
-const SET_USER_DATA = "SET_USER_DATA";
+const SET_USER_DATA = "auth/SET_USER_DATA";
 
 type AuthType = {
     id: number | null
@@ -38,43 +38,38 @@ export const setAuthUserData = (id: number | null, email: string | null, login: 
 
 type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsType>;
 
-export const getAuthUserData = (): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> => {
-    return (dispatch: ThunkDispatch<AppStateType, unknown, ActionsType>) => {
-        return authAPI.me()
-            .then(response => {
-                if (response.resultCode === ResultCodesEnum.Success) {
-                    let {id, email, login} = response.data;
-                    dispatch(setAuthUserData(id, email, login, true));
-                }
-            })
-    }
-};
+export const getAuthUserData = (): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> =>
+    async (dispatch: ThunkDispatch<AppStateType, unknown, ActionsType>) => {
+        let response = await authAPI.me();
 
-export const login = (email: string, password: string, rememberMe: boolean): ThunkType => {
-    return (dispatch: ThunkDispatch<AppStateType, unknown, ActionsType | FormAction>) => {
-        authAPI.login(email, password, rememberMe)
-            .then(response => {
-                debugger;
-                if (response.resultCode === ResultCodesEnum.Success) {
-                    dispatch(getAuthUserData());
-                } else {
-                    let msg = response.messages.length > 0 ? response.messages[0] : "Some error"
-                    dispatch(stopSubmit("login", {_error: msg}));
-                }
-            })
-    }
-};
+        if (response.resultCode === ResultCodesEnum.Success) {
+            let {id, email, login} = response.data;
+            dispatch(setAuthUserData(id, email, login, true));
+        }
+    };
 
-export const logout = (): ThunkType => {
-    return (dispatch: ThunkDispatch<AppStateType, unknown, ActionsType>) => {
-        authAPI.logout()
-            .then(response => {
-                if (response.resultCode === 0) {
-                    dispatch(setAuthUserData(null, null, null, false));
-                }
-            })
-    }
-};
+export const login = (email: string, password: string, rememberMe: boolean): ThunkType =>
+    async (dispatch: ThunkDispatch<AppStateType, unknown, ActionsType | FormAction>) => {
+        let response = await authAPI.login(email, password, rememberMe);
+
+        if (response.resultCode === ResultCodesEnum.Success) {
+            dispatch(getAuthUserData());
+        } else {
+            let msg = response.messages.length > 0 ? response.messages[0] : "Some error"
+            dispatch(stopSubmit("login", {_error: msg}));
+        }
+    };
+
+
+export const logout = (): ThunkType =>
+    async (dispatch: ThunkDispatch<AppStateType, unknown, ActionsType>) => {
+        let response = await authAPI.logout();
+
+        if (response.resultCode === 0) {
+            dispatch(setAuthUserData(null, null, null, false));
+        }
+    };
+
 
 export type SetUserDataActionType = ReturnType<typeof setAuthUserData>;
 
