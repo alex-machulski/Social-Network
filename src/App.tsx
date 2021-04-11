@@ -65,7 +65,7 @@ const AppContainer = compose<React.ComponentType>(
     }))(App);
 
 const MainApp = () => {
-    return <HashRouter basename={process.env.PUBLIC_URL}>
+    return <HashRouter>
         <Provider store={store}>
             <AppContainer/>
         </Provider>
