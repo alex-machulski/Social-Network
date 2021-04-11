@@ -2,7 +2,6 @@ import React from "react";
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
 import {BrowserRouter, Route, withRouter} from 'react-router-dom';
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
@@ -12,6 +11,8 @@ import store, {AppStateType} from "./redux/redux-store";
 import {compose} from "redux";
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
+import {withSuspense} from "./hoc/withSuspense";
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 
 type AppPropsType = {
     initialized: boolean
@@ -34,7 +35,7 @@ class App extends React.Component<AppPropsType> {
                 <HeaderContainer/>
                 <Navbar/>
                 <div className="app-wrapper-content">
-                    <Route path={"/dialogs"} render={() => <DialogsContainer/>}/>
+                    <Route path={"/dialogs"} render={withSuspense(DialogsContainer)}/>
                     <Route path={"/profile/:userId?"} render={() => <ProfileContainer/>}/>
                     <Route path={"/users"} render={() => <UsersContainer/>}/>
                     <Route path={"/login"} render={() => <LoginPage/>}/>
@@ -62,7 +63,7 @@ const AppContainer = compose<React.ComponentType>(
         initializeApp
     }))(App);
 
-const MainApp = (props: any) => {
+const MainApp = () => {
     return <BrowserRouter>
         <Provider store={store}>
             <AppContainer/>
