@@ -1,4 +1,4 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import profileReducer, {
     AddPostActionType, DeletePostActionType,
     SetStatusActionType,
@@ -36,7 +36,11 @@ let reducers = combineReducers({
 type RootReducerType = typeof reducers;
 export type AppStateType = ReturnType<RootReducerType>
 
-let store = createStore(reducers, applyMiddleware(thunkMiddleware));
+// @ts-ignore
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddleware)));
+
+//let store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 export type ActionsType =
     AddPostActionType
@@ -55,6 +59,6 @@ export type ActionsType =
     | DeletePostActionType
 
 // @ts-ignore
-window.store = store
+window._store = store
 
 export default store;
